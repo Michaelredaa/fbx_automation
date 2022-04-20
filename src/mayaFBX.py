@@ -221,6 +221,10 @@ class MayaFBX(FileManager):
         if not fbx_nodes:
             return None, None
 
+        # check if the fbx file has a teatures
+        if len(textures) < 1:
+            self.message(self.maya_window, "Warning", '"{}" does not have any associated textures.'.format(fbx_file_path))
+
         for node in fbx_nodes:
             # reset transformation
             self.makeIdentity(node)
@@ -228,7 +232,7 @@ class MayaFBX(FileManager):
             # bind materials
             mtl_nodes = self.get_bind_material(node)
             if not mtl_nodes:
-                self.message(self.maya_window, "Warning", '"{}" does not have any bind material.'.format(node))
+                self.message(self.maya_window, "Warning", 'Filepath: "{}"\n"{}" does not have any bind material.'.format(fbx_file_path, node))
                 continue
 
             for mtl_node in mtl_nodes:
@@ -237,8 +241,8 @@ class MayaFBX(FileManager):
                 if not mtl_connection:
                     self.message(self.maya_window,
                                  "Warning",
-                                 '"{}" material type does not have any configuration, please configer it first '.format(
-                        mtl_node))
+                                 'Filepath: "{}"\n""{}" material type does not have any configuration or fbx has not bind materials, '
+                                 'please configer it first.'.format(fbx_file_path, mtl_node))
                     continue
 
                 for tex_type in textures:
@@ -280,7 +284,7 @@ class MayaFBX(FileManager):
                         used_textures.append(file_node)
         return used_textures, fbx_nodes
 
-    def deleteUnsedNodes(self):
+    def delete_unsed_nodes(self):
         """
         To delete unused nodes in hypershade
         """
@@ -288,6 +292,8 @@ class MayaFBX(FileManager):
         mel.eval('MLdeleteUnused;')
 
     def re_export_fbx_file(self, fbx_file_path, tex_nodes, fbx_nodes, options="default"):
+
+        self.delete_unsed_nodes()
 
         fbx_dir = os.path.dirname(fbx_file_path)
         tex_dir = self.make_dirs(fbx_dir, "textures")
@@ -308,7 +314,7 @@ class MayaFBX(FileManager):
         self.export_fbx(fbx_file_path, fbx_nodes, options=options)
 
         cmds.delete(fbx_nodes)
-        self.deleteUnsedNodes()
+        self.delete_unsed_nodes()
 
 
 # ---------------------------------
