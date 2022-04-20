@@ -9,17 +9,17 @@ FBX automation tool
 
 * Download files from server.
 * Automatic link textures with fbx file base on configured texture names patterns.
-* Frees Transformation of fbx objects
-* Organize the output of fbx directory
+* Frees Transformation of fbx objects.
+* Organize the output of fbx directory.
 * Supports Maya 2018+
 
 ## Tutorials
 
-* [How to use the tool]()
+* [How to use the tool](https://drive.google.com/file/d/15xc7qgSMFBjHEdGr8DW2V59FAC-cVShn/view?usp=sharing)
 
 ## Installation
 
-1. Download and unzip the *FBX_automation.zip* file from [github](https://github.com/Michaelredaa/fbx_automation/releases/tag/fbx).
+1. Download and unzip the *FBX_automation.zip* file from [github](https://github.com/Michaelredaa/fbx_automation)).
 
 2. Drag and drop the "FBX_automation/install.mel" file onto the Maya viewport.
 
@@ -36,7 +36,7 @@ place the unzipped "FBX_automation" folder on a network drive.
 <img src="./src/icons/fbx_automation_snapshot.png" width="543" height="248"/>
 
 ## Documentation
-1. Browse to choose the text file with all urls
+1. Browse to choose the text file with all urls.
 
 2. Browse to choose the download and target directories.
 
@@ -44,7 +44,7 @@ place the unzipped "FBX_automation" folder on a network drive.
 
 4. The output FBX file now is linked with textures.
 
-5. If you want to use `localhost` server place "FBX_automation\example_files\server\start_server.bat" in your directory and run it
+5. If you want to use `localhost` server place "FBX_automation\example_files\server\start_server.bat" in your directory and run it.
 
 
 ## Feedback and suggestions
