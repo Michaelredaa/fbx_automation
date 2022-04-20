@@ -1,0 +1,13 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+config/config.json
+
+# Working files
+FBX_automation\example_files
+*.png
+*.jpg
+*.fbx
+*.zip
+*.txt

@@ -1,0 +1,12 @@
+/*
+Drag and drop for Maya
+*/
+
+global proc fbxAutomationInstall() {
+    string $whatIs = `whatIs fbxAutomationInstall`;
+    string $path = `substring $whatIs 25 999`;
+    string $filename = `substitute "install.mel" $path "install.py"`;;
+    python("import imp;imp.load_source('fbxAutomationInstall', '"+$filename+"')");
+}
+
+fbxAutomationInstall();
