@@ -27,6 +27,7 @@ from PySide2.QtWidgets import *
 from utils.MayaToolSettingsUI import Ui_ToolSettings
 from utils.FileManager import FileManager
 from mayaFBX import MayaFBX
+
 # ---------------------------------
 # Variables
 __python__ = sys.version_info[0]
@@ -128,6 +129,7 @@ class MayaFBXUI(QMainWindow, Ui_ToolSettings, FileManager):
         if not os.path.isfile(links_list_path):
             self.message(self, "Error", '"{}" does not exist on system'.format(links_list_path))
             return
+
         self.make_dirs(download_dir)
         self.make_dirs(output_dir)
 
@@ -145,25 +147,30 @@ class MayaFBXUI(QMainWindow, Ui_ToolSettings, FileManager):
                 tex_nodes, fbx_nodes = fbx.import_fbx_with_texture(out_zip_extract)
 
                 if not fbx_nodes:
-                    self.message(self,"warring", '{} does not have a fbx file'.format(url))
+                    self.message(self, "warning", '{} does not have a fbx file'.format(url))
                     continue
 
                 fbx_file_dir = self.make_dirs(os.path.join(output_dir, zip_name))
                 fbx_file_path = os.path.join(fbx_file_dir, zip_name + ".fbx")
                 fbx.re_export_fbx_file(fbx_file_path, tex_nodes, fbx_nodes)
 
+        self.message(self, "Info", "All files are converted successfully.")
+
     def onBrowse(self, lineEdit_object=None, title="Select directory", directory=True):
 
         if lineEdit_object is None:
             pass
         else:
-            le_text = lineEdit_object.text()
+            le_text = lineEdit_object.text().strip()
 
-            if (le_text is None) or not os.path.isdir(le_text):
+            if not le_text:
                 le_text = QDir.rootPath()
 
             if os.path.isfile(le_text):
                 le_text = os.path.dirname(le_text)
+
+            if not os.path.isdir(le_text):
+                le_text = QDir.rootPath()
 
             self.make_dirs(le_text)
 
@@ -221,6 +228,8 @@ class MayaFBXUI(QMainWindow, Ui_ToolSettings, FileManager):
 
     def get_user_data(self):
         user_cfg_path = self.user_cfg_file()
+        if not os.path.isfile(user_cfg_path):
+            return
         with open(user_cfg_path, 'r') as f:
             data = json.load(f)
         try:
@@ -229,8 +238,6 @@ class MayaFBXUI(QMainWindow, Ui_ToolSettings, FileManager):
             self.le_output.setText(data.get("le_output"))
         except:
             pass
-
-
 
 
 # ---------------------------------
