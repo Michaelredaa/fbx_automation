@@ -19,7 +19,7 @@ FBX automation tool
 
 ## Installation
 
-1. Download and unzip the *FBX_automation.zip* file from [github](https://github.com/Michaelredaa/fbx_automation)).
+1. Download and unzip the *FBX_automation.zip* file from [github](https://github.com/Michaelredaa/fbx_automation/releases/tag/fbx)).
 
 2. Drag and drop the "FBX_automation/install.mel" file onto the Maya viewport.
 
